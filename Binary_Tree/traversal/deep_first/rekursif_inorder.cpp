@@ -1,5 +1,5 @@
 /**
-* @file inorder.cpp program untuk mensimulasikan traversal tree dengan metode
+* @file rekursif_inorder.cpp program untuk mensimulasikan traversal tree dengan metode
 * inorder dengan pendekatan rekursi
 * @brief main idea dari inorder adalah mulai dari root node lalu traversal ke subtree kiri
 * kemudian kembali ke root lalu selesaikan subtree kanan

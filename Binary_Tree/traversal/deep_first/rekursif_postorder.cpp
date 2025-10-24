@@ -1,5 +1,5 @@
 /**
-* @file postorder.cpp program untuk mensimulasikan tree traversal metode postorder dengan
+* @file rekursif_postorder.cpp program untuk mensimulasikan tree traversal metode postorder dengan
 * menggunakan pendekatan rekursif
 * @brief postorder traversal adalah tree traversal yang bekerja dengan mengunjungi subtree kanan
 * terlebih dahulu lalu lanjut ke subtree kiri terakhir kembali ke root
