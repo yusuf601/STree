@@ -1,5 +1,5 @@
 /**
-* @file preorder.cpp program untuk mensimulasikan tree traversal dengan metode preorder
+* @file rekursif_preorder.cpp program untuk mensimulasikan tree traversal dengan metode preorder
 * dengan pendekatan rekursif
 * @brief preorder traversal adalah metode traversal yang mengunjungi root terlebih dahulu lalu
 * ke subtree kiri dan terakhir ke subtree kanan.
