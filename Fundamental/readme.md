@@ -111,7 +111,7 @@ node leaf D dan E :
 
 tidak punya child -> $Height(D) = 0$,$Height(E) = 0$
 
-    - Node B:
+Node B:
 
 Node B punya anak(child) yaitu Node D dan Node E
 
@@ -123,7 +123,7 @@ maka:
 
 $height = 1 + (max(0,0)) = 1$
 
-    - Node A:
+Node A:
 
 Node A punya anak(child) yaitu Node B dan C
 
