@@ -1,4 +1,10 @@
-# Binary Tree Introduction
+# Daftar Isi
+
+- [struktur Binary Tree](#structure-binary-tree)
+- [traversal](#traversal)   
+    - [dfs](#deepth-first)
+    - [bfs](#breadth-first)
+- [problem](#problem)
 
 ## Structure Binary Tree
 
@@ -60,6 +66,63 @@ jumlah node lead = internal node + 1
 
 - Degenerate (Skewed) Tree → setiap node hanya punya satu anak (kiri saja atau kanan saja).
 
+## Traversal
+
+Tree memiliki 2 jenis traversal yaitu:
+
+### Deepth first
+
+[Deepth first](../Binary_Tree/traversal/deep_first) atau biasa dikenal Deepth first traversal(dfs) adalah jenis traversal yang menelusuri subtree paling kiri dan terdalam terlebih dahulu lalu pindah ke subtree kanan.deepth
+first biasanya memakai rekursif untuk melakukan traversal tetapi dapat juga memakai iteratif approach
+
+dfs memiliki 3 metode yaitu 
+
+- inorder
+
+    inorder menelusuri node mulai dari subtree kiri sampai pada leaf paling kiri lalu kembali ke root setelah itu mulai menelusuri node pada subtree paling kanan.Maka urutan dari inorder traversal adalah:
+
+    subtreee kiri -> root -> subtree kanan
+
+- preorder
+
+    preorder menelusuri node mulai dari root lalu ke subtree kiri hingga ke leaf node paling kiri,setelah
+    itu menelusuri subtree kanan.Maka urutan dari preorder traversal adalah:
+    
+    root -> subtree kiri ->subtree kanan
+
+- postorder
+    postorder menelusuri node mulai dari subtree paling kiri hingga leaf node paling kiri setelah itu pindah ke
+    subtree paling kanan sampai leaf node paling kanan setelah itu kembali ke root.Maka urutan dari postorder
+    traversal sebagai adalah:
+    
+    subtree kiri ->subtree kanan -> root
+
+### breadth first
+[Breadh first](Binary_Tree/traversal/breadth_first) atau biasa dikenal `breadth first traversal(bfs)` adalah jenis traversal yang menelusi node.dengan cara melebar dari kiri ke kanan sampai leaf kanan.selain itu breadth first juga dikenal dengan nama `level order traversal`,karena kita dapat memproses node per level
 
 
+## Problem
 
+1. size of tree
+
+diberikan binary tree hitung size pada tree.size adalah `banyak node` yang ada pada tree
+
+contoh:
+
+<p align="center">
+
+<img src="../images/problem/size_tree.png" alt="gambar">
+
+</p>
+
+output: `6`
+
+penjelasan: banyak node yang ada pada tree berjumlah `6`
+
+**solusi**
+
+- dari jenis traversal pilih salah satu
+- buat counter untuk menghitung banyak node.
+- lakukan traversal tiap kemunculan node increment counter
+
+solusi dapat dilihat di [sini](../Binary_Tree/problems/Size_of_a_tree.cpp)
