@@ -11,7 +11,9 @@
 
 <p align="center">
 
-<img src="images/md_homes/tree.png" alt="gambar">
+<img src="images/md_homes/tree.png" alt="gambar" >
+
+</p>
 
 ## Introduction
 
@@ -58,17 +60,10 @@ tree membutuhkan data struktur dibawah untuk melakukan operasi traversal dan men
 
 1. array
 
-Digunakan untuk menyimpan node tree (misalnya dalam representasi heap atau segment tree).sumber yang dapat dipakai belajar:
-
-[array](https://www.geeksforgeeks.org/dsa/array-data-structure-guide/)
-
+Digunakan untuk menyimpan node tree (misalnya dalam representasi heap atau segment tree)
 2. Stack
 
-Penting dalam tree traversal non-rekursif seperti inorder, preorder, atau postorder traversal. Stack meniru perilaku call stack rekursi.Sumber yang dapat dipakai belajar
-
-[stack](https://www.geeksforgeeks.org/dsa/stack-data-structure/)
-
-[build stack from sratch](https://github.com/Build-X-From-Scratch/Stack_Scratch)
+Penting dalam tree traversal non-rekursif seperti inorder, preorder, atau postorder traversal. Stack meniru perilaku call stack rekursi.
 
 3. queue
 
