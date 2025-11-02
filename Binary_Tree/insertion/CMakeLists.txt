@@ -1,3 +1,3 @@
 add_executable(insertion_demo
-    insertion.cpp
+    insertion_tree.cpp
 )

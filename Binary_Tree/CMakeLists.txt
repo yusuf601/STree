@@ -5,6 +5,6 @@ add_subdirectory(traversal)
 add_subdirectory(depth_&_height)
 
 add_executable(binary_treeMain
-    Binary_Tree/Binary_trer_fundamental.cpp
+    Binary_trer_fundamental.cpp
 )
 

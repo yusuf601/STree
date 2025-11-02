@@ -39,3 +39,67 @@
 
 # debug information files
 *.dwo
+
+# === C++ build artifacts ===
+*.o
+*.obj
+*.so
+*.a
+*.lib
+*.dll
+*.exe
+*.out
+*.log
+
+# === CMake generated files ===
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+install_manifest.txt
+CTestTestfile.cmake
+CMakeScripts/
+CMakeUserPresets.json
+
+# === Build directories (anywhere) ===
+build/
+**/build/
+**/CMakeFiles/
+**/cmake_install.cmake
+**/Makefile
+
+# === Binary output ===
+**/*.bin
+**/*.exe
+**/*.out
+
+# === IDE / editor cache ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# === Backup files ===
+*.bak
+*.tmp
+
+# === System / environment ===
+.env
+.cache/
+.clangd/
+compile_commands.json
+
+# === Specific project folders you listed ===
+Binary_Tree/**/CMakeFiles/
+Binary_Tree/**/Makefile
+Fundamental/**/CMakeFiles/
+Fundamental/**/Makefile
+
+# Keep source and docs safe
+!**/*.cpp
+!**/*.hpp
+!**/*.h
+!**/*.md
+!LICENSE

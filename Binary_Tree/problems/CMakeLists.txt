@@ -1,5 +1,3 @@
-add_executable(problems_test
-    Binary_Tree/problems/find_minimum_and_maximum.cpp
-    Binary_Tree/problems/Size_of_a_tree.cpp
-    Binary_Tree/problems/two_mirror_treec.cpp
-)
+add_executable(find_minimum_and_maximum find_minimum_and_maximum.cpp)
+add_executable(Size_of_a_tree Size_of_a_tree.cpp)
+add_executable(two_mirror_treec two_mirror_treec.cpp)
