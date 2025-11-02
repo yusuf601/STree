@@ -13,6 +13,14 @@ struct Node{
         this->right = nullptr;
     }
 };
+class Command{
+    public:
+        //pure virtual funciton
+        virtual void execute() = 0;
+        virtual void undo() = 0;
+        //virtual destuctor
+        virtual ~Command() = default;
+};
 class TraversalStrategy{
     public:
         virtual void traverse(Node* root,std::function<void(Node*)> visit) = 0;
@@ -97,6 +105,8 @@ class levelOrder : public TraversalStrategy{
             }
         }
 };
+
+//receiver
 class BinaryTree{
     private:
         Node* root;
@@ -129,6 +139,9 @@ class BinaryTree{
                     q.push(node->right);
                 }
             }
+        }
+        void cancel(){
+            
         }
         //setter
         void setStrategy(std::unique_ptr<TraversalStrategy>strategi){
@@ -193,6 +206,25 @@ class BinaryTree{
             });
             return sum;
         }
+};
+//conrete command insert(implementasi insert node pada tree)
+class InsertNode : public Command{
+    private:
+        BinaryTree& tree;
+        int val;
+    public:
+        InsertNode(BinaryTree& t,int val) : tree(t),val(val){}
+    public:
+        void execute()override{
+            tree.insert(val);
+        }
+        void undo()override{
+
+        }
+};
+//invoker
+class ManageCommand{
+
 };
 int main(){
     BinaryTree tree;

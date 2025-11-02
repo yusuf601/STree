@@ -30,7 +30,7 @@ void IteratifInorder(Node* root){
             st.push(curr);
             curr = curr->left;
         }
-        // masuk ke subtree paling kiri
+        // masuk ke subtree paling kanan
         curr = st.top();
         st.pop();
         std::cout << curr->data << " ";

@@ -151,13 +151,14 @@ bool checked(Node* a,Node* b){
         if(node1->data != node2->data){
             return false;
         }
-        //check mirror
+        //check a1->left dan a2->right
         if(node1->left && node2->right){
             s1.push(node1->left);
             s2.push(node2->right);
         }else if(node1->left || node2->right){
             return false;
         }
+        //check a2->right dan a2->left
         if(node1->right && node2->left){
             s1.push(node1->right);s2.push(node2->left);
         }else if(node1->right || node2->left){
