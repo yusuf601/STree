@@ -240,9 +240,9 @@ class InsertNode : public Command{
     private:
         BinaryTree& tree;
         int val;
-        InsertCommand& cmd;
+        InsertCommand cmd;
     public:
-        InsertNode(BinaryTree& t,int val,InsertCommand& c) : tree(t),val(val),cmd(c){}
+        InsertNode(BinaryTree& t,int val) : tree(t),val(val){}
     public:
         void execute()override{
             tree.insert(val);
