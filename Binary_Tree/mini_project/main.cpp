@@ -13,6 +13,11 @@ struct Node{
         this->right = nullptr;
     }
 };
+struct InsertCommand{
+    Node* parent;
+    Node* node;
+    bool is_left;
+};
 class Command{
     public:
         //pure virtual funciton
@@ -114,33 +119,56 @@ class BinaryTree{
     public: 
         BinaryTree() : root(nullptr){}
     public:
-        void insert(int val){
+        //false left,true right
+        InsertCommand insert(int val){
             Node* new_node = new Node(val);
             if(!root){
                 root = new_node;
-                return;
+                return {nullptr,root,false};
             }
+            //history
+            Node* parent = nullptr;
+            Node* child = nullptr;
+            bool is_left = false;
             //pakai level order
             std::queue<Node*>q;
             q.push(root);
+            Node* p = nullptr;
+            int pos = 0;
             while(!q.empty()){
                 Node* node = q.front();
                 q.pop();
                 if(!node->left){
                     node->left = new_node;
+                    parent = node;
+                    child = node->left;
+                    is_left = true;
                     break;
                 }else{
                     q.push(node->left);
                 }
                 if(!node->right){
                     node->right = new_node;
+                    parent = node;child = node->right;is_left = false;
                     break;
                 }else{
                     q.push(node->right);
                 }
             }
+            return {parent,child,is_left};
+            
         }
-        void cancel(){
+        void cancel(InsertCommand& cmd){
+            if(cmd.parent == nullptr){
+                delete root;
+                root = nullptr;
+                return;
+            }
+            if(cmd.is_left){
+                cmd.parent->left = nullptr;
+            }else{
+                cmd.parent->right = nullptr;
+            }
             
         }
         //setter
@@ -154,7 +182,7 @@ class BinaryTree{
             }
             strategy->traverse(root, [](Node* node) {
                 if(node){
-                    std::cout << node->data << "\n";
+                    std::cout << node->data << " ";
                 }
             });
             std::cout << "\n";
@@ -212,36 +240,75 @@ class InsertNode : public Command{
     private:
         BinaryTree& tree;
         int val;
+        InsertCommand& cmd;
     public:
-        InsertNode(BinaryTree& t,int val) : tree(t),val(val){}
+        InsertNode(BinaryTree& t,int val,InsertCommand& c) : tree(t),val(val),cmd(c){}
     public:
         void execute()override{
             tree.insert(val);
         }
         void undo()override{
-
+            tree.cancel(cmd);
         }
 };
 //invoker
 class ManageCommand{
-
+    private:
+        std::stack<std::unique_ptr<Command>>UndoStack;
+        std::stack<std::unique_ptr<Command>>RedoStack;
+    public:
+        void executeCommand(std::unique_ptr<Command>cmd){
+            cmd->execute();
+            UndoStack.push(std::move(cmd));
+            if(!RedoStack.empty()){
+                RedoStack.pop();
+            }
+        }   
+        void Undo(){
+            if(UndoStack.empty()){
+                return;
+            }
+            auto cmd = std::move(UndoStack.top());
+            UndoStack.pop();
+            cmd->undo();
+            RedoStack.push(std::move(cmd));
+        }
+        void redo(){
+            if(RedoStack.empty()){
+                return;
+            }
+            auto cmd = std::move(RedoStack.top());
+            RedoStack.pop();
+            cmd->execute();
+            UndoStack.push(std::move(cmd));
+        }
 };
-int main(){
+int main(int argc,char* argv[]){
+    //insert history struct
+    InsertCommand cmd;
+    //buat object receiver
     BinaryTree tree;
-    for(auto val: {1,2,3,4,5,6,7}){
-        tree.insert(val);
+    //buat object invoker
+    ManageCommand manager;
+    //insert
+    for(auto val : {1,2,3,4,5,6,7}){
+        manager.executeCommand(std::make_unique<InsertNode>(tree,val));
     }
-    // std::cout << "ini semua memakai inorder traversal" << std::endl;
-    tree.setStrategy(std::make_unique<preorderTraversal>());
-    std::cout << "jumlah node: " << tree.sum_nodes() <<  "\n";
-    std::cout << "cari node 4,apakah ada ";
-    if(tree.search(4)){
-        std::cout << "ya\n";
+    if(argc < 2){
+        std::cerr << "usage: ./program -[traversal strategi]";
+    }
+    std::string arg = argv[1];
+    if(arg == "-in"){
+        tree.setStrategy(std::make_unique<inorder>());
+    }else if(arg == "-pre"){
+        tree.setStrategy(std::make_unique<preorderTraversal>());
+    }else if(arg == "-post"){
+        tree.setStrategy(std::make_unique<postorder>());
+    }else if(arg == "bfs"){
+        tree.setStrategy(std::make_unique<levelOrder>());
     }else{
-        std::cout << "ngak\n";
+        std::cout << "usage: ./program [traversal strategi]";
     }
-    std::cout << "size node: " << tree.size_node() << "\n";
-    std::cout << "print node \n";
     tree.printNode();
     //std::cin.get();
     return 0;
