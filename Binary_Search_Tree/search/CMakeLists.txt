@@ -1,0 +1,1 @@
+add_executable(Search search.cpp)

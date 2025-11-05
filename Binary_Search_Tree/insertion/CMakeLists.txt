@@ -1,0 +1,2 @@
+add_executable(insert_iterativ insert.cpp)
+add_executable(insert_demo_recursive insert_recursive.cpp)

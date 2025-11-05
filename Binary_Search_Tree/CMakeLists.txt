@@ -1,0 +1,3 @@
+add_subdirectory(deletion)
+add_subdirectory(insertion)
+add_subdirectory(search)
