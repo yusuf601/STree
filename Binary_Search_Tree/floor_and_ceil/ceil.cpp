@@ -64,6 +64,26 @@ int ceil(Node* root,int key){
   }
   return _min;
 }
+int optimization(Node* root,int x){
+  if(!root){
+    return -1;
+  }
+  int successor = -1;
+  while (root) {
+      if (x == root->data) {
+          return x;  // case 1: key ditemukan
+      }
+      else if (x < root->data) {
+          successor = root->data; // calon successor
+          root = root->left;
+      }
+      else {
+          root = root->right;
+      }
+  }
+
+    return successor; // jika tidak dapat successor → tetap -1
+}
 int main(){
    /**
           8
