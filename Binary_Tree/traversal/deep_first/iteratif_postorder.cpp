@@ -7,7 +7,7 @@
 * 1.menggunakan 2 stack
 * stack pertama dipakai untuk traversal seperti preorder(root->subtree kiri->subtree kanan)
 * stack kedua untuk menampung hasil terbalik(subtree kanan->subtree kiri->root)
-* 2.Menggunakan 1 stack 
+* 2.Menggunakan 1 stack
 * jika menggunakan 1 stack harus menambahkan pointer lastVisited,untuk menandai apakah node
 * ini sudah dikunjungi atau belum
 */
@@ -18,67 +18,84 @@ struct Node{
     int data;
     Node* left;
     Node* right;
-    Node(int x): data(x){
+    Node(int x){
         this->data = x;
-        this->left= nullptr;
+        this->left = nullptr;
         this->right = nullptr;
     }
 };
-void IteratifPostorderI(Node* root){
-    if(!root){
-        return;
-    }
-    std::stack<Node*>st1,st2;
-    st1.push(root);
-    while(!st1.empty()){
-        Node* node = st1.top();
-        st1.pop();
-        st2.push(node); //root masuk ke st2
-        if(node->left){
-            st1.push(node->left);
+class Traversal{
+    public:
+        Traversal(){}
+    public:
+        void IteratifPostorderI(Node* root){
+            if(!root){
+                return;
+            }
+            std::stack<Node*>st1,st2;
+            st1.push(root);
+            while(!st1.empty()){
+                Node* node = st1.top();
+                st1.pop();
+                st2.push(node); //root masuk ke st2
+                if(node->left){
+                    st1.push(node->left);
+                }
+                if(node->right){
+                    st1.push(node->right);
+                }
+            }
+            // balik
+            std::vector<int>res;
+            while(!st2.empty()){
+                res.push_back(st2.top()->data);
+                st2.pop();
+            }
+            for(auto x: res){
+                std::cout << x << " ";
+            }
+            // left -> right->root
         }
-        if(node->right){
-            st1.push(node->right);
-        }
-    }
-    // balik
-    std::vector<int>res;
-    while(!st2.empty()){
-        res.push_back(st2.top()->data);
-        st2.pop();
-    }
-    for(auto x: res){
-        std::cout << x << " ";
-    }
-    // left -> right->root
-}
-void IteratifPostorderII(Node* root){
-    if(!root){return;}
-    std::vector<int>res;
-    std::stack<Node*>st;
-    Node* curr = root;
-    Node* lastVisited = nullptr;
-    while(curr || !st.empty()){
-        if(curr){
-            //push semua node di kiri
-            st.push(curr->left);
-            curr = curr->left;
-            // selesai jika mentok kiri
-        }else{
-            Node* peek = st.top();
-            if(peek->right && lastVisited != peek->right){
-                curr = peek->right; //kekanan
-            }else{
-                res.push_back(peek->data);
-                lastVisited = peek;
-                st.pop();
+        void IteratifPostorderII(Node* root){
+            if(!root){
+                return;
+            }
+            std::stack<std::pair<Node*,bool>>s;
+            s.push({root,false});
+            while(!s.empty()){
+                auto [nodes,check] = s.top();
+                s.pop();
+                if(!nodes)continue;
+                if(!check){
+                    s.push({nodes,true});
+                    if(nodes->right)s.push({nodes->right,false});
+                    if(nodes->left)s.push({nodes->left,false});
+                }else{ //semua logic disini
+                    std::cout << nodes->data << " ";
+                }
             }
         }
-    }
-    for(auto x: res){
-        std::cout << x << " ";
-    }
-}
+        void IteratifPostOrderIII(Node* root){
+            if(!root)return;
+            std::stack<Node*>s;
+            Node* nodes = root;
+            Node* LastVisited = nullptr;
+            while(nodes || !s.empty()){
+               while(nodes){
+                   s.push(nodes);
+                   nodes = nodes->left;
+               }
+               Node* PeekNode = s.top();
+               if(PeekNode->right && PeekNode->right != LastVisited){
+                   nodes = PeekNode->right;
+               }else{
+                   std::cout << PeekNode->data << " ";
+                   LastVisited = PeekNode;
+                   s.pop();
+               }
+            }
+        }
+};
 int main(){
     //      5
     //     / \
@@ -105,6 +122,8 @@ int main(){
 
     root->right->right->left = new Node(8);
     root->right->right->right = new Node(11);
+    Traversal t;
+    t.IteratifPostOrderIII(root);
     std::cin.get();
     return 0;
 }
